@@ -1,37 +1,83 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../store/firebase-config";
+import { setProperty } from "./../../../helper/setPropertyToNestedObj";
 import { NavLink } from "react-router-dom";
+import goog from "../../../img/G.png";
 
-export const LoginFormWithGoogle = ({isExistent}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export const LoginFormWithGoogle = ({ isExistent }) => {
+  const [userCredentials, setUserCredentials] = useState({
+    email: "",
+    password: "",
+  });
+  const handleLogin = () => {
+    signInWithEmailAndPassword(
+      auth,
+      userCredentials.email,
+      userCredentials.password
+    )
+      .then(() => {
+        const user = auth.currentUser;
+        console.log("user", user);
+      })
+      .catch((error) => {
+        alert(error.code, error.message);
+      });
+  };
+
+  const onInputChange = (e) => {
+    const { value, name } = e.target;
+    setUserCredentials(setProperty(userCredentials, name, value));
+  };
 
   const changeExitent = () => {
-    isExistent(true)
-   }
+    isExistent(true);
+  };
 
   return (
     <div className="login-form">
-      <h1>Log in</h1>
+      <h1 className="form-title">Log in</h1>
+      <label className="input-label" htmlFor="email">
+        E-mail
+      </label>
       <input
+        name="email"
+        className="form-input"
         type="email"
         id="email"
-        value={email}
+        value={userCredentials.email}
         placeholder="email"
-        onChange={(e) => console.log(e.target.value)}
+        onChange={onInputChange}
       />
+      <label className="input-label" htmlFor="password">
+        Password
+      </label>
       <input
+        name="password"
+        className="form-input"
         type="password"
         id="password"
-        value={password}
+        value={userCredentials.password}
         placeholder="password"
-        onChange={(e) => console.log(e.target.value)}
+        onChange={onInputChange}
       />
-      <p>or</p>
-
-      <button>Log in with Google</button>
+      <button className="form-login-button" onClick={handleLogin}>
+        Login
+      </button>
+      <p className="or">or</p>
+      <span className="line"></span>
+      <button className="form-google-login-button">
+        Login with Google
+        <img className="form-google-login-button-img" src={goog} alt="G" />
+      </button>
 
       <div>
-        <p>Don`t have an account? <button onClick={changeExitent}>Sign up</button></p> 
+        <p>
+          Don`t have an account?
+          <span className="login-page-signup-button" onClick={changeExitent}>
+            Sign up
+          </span>
+        </p>
       </div>
     </div>
   );

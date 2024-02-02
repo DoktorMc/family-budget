@@ -21,6 +21,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, removeUser, isLoading } = userSlice.actions;
+export const { setUser, removeUser, setLoading } = userSlice.actions;
 
 export default userSlice;

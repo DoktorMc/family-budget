@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../../store/firebase-config";
 import { setProperty } from "./../../../helper/setPropertyToNestedObj";
 import { withRouter } from "../../../hoc/withRouter";
@@ -17,9 +13,7 @@ export const SignupComponent = ({ isExistent }) => {
     email: "",
     password: "",
   });
-  
-  const navigate = useNavigate();
- 
+
   const handleSignUp = () => {
     const userName =
       "" + userCredentials.firstName + " " + userCredentials.lastName;
@@ -29,14 +23,22 @@ export const SignupComponent = ({ isExistent }) => {
       userCredentials.email,
       userCredentials.password
     )
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("user: ", user);
-      })
+      .then(
+        updateProfile(auth.currentUser, {
+          displayName: userName,
+        })
+          .then(() => {
+            console.log("Profile updated!");
+          })
+          .catch((error) => {
+            console.log("An error occurred");
+          })
+      )
       .catch((error) => {
-        alert(error.code, error.message);
+        alert(error.message, error.code);
       });
     // navigate('/login')
+
     isExistent(false);
   };
 
@@ -47,8 +49,12 @@ export const SignupComponent = ({ isExistent }) => {
 
   return (
     <div className="login-form">
-      <h1>Sign Up</h1>
+      <h1 className="form-title">Sign Up</h1>
+      <label className="input-label" htmlFor="email">
+        E-mail
+      </label>
       <input
+        className="form-input"
         name="email"
         type="email"
         id="email"
@@ -56,7 +62,11 @@ export const SignupComponent = ({ isExistent }) => {
         placeholder="email"
         onChange={onInputChange}
       />
+      <label className="input-label" htmlFor="firstName">
+        First name
+      </label>
       <input
+        className="form-input"
         name="firstName"
         type="text"
         id="firstName"
@@ -64,7 +74,11 @@ export const SignupComponent = ({ isExistent }) => {
         placeholder="first name"
         onChange={onInputChange}
       />
+      <label className="input-label" htmlFor="lastName">
+        Last name
+      </label>
       <input
+        className="form-input"
         name="lastName"
         type="text"
         id="lastName"
@@ -72,7 +86,11 @@ export const SignupComponent = ({ isExistent }) => {
         placeholder="last name"
         onChange={onInputChange}
       />
+      <label className="input-label" htmlFor="password">
+        Password
+      </label>
       <input
+        className="form-input"
         name="password"
         type="password"
         id="password"
@@ -82,7 +100,9 @@ export const SignupComponent = ({ isExistent }) => {
       />
 
       <div>
-        <button onClick={handleSignUp}>Sign Up</button>
+        <button className="signup-page-button" onClick={handleSignUp}>
+          Sign Up
+        </button>
       </div>
     </div>
   );
