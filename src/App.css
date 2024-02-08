@@ -3,6 +3,17 @@
   src: url('/src/fonts/comfortaa/Comfortaa-Regular.woff2') format("woff2");
 }
 
+ul, p{
+  padding: 0;
+  margin: 0;
+}
+
+.outlet-container{
+  padding: 20px;
+  height: inherit;
+  /* width: 100%; */
+}
+
 .App{
   display: flex; 
   background-color: #263238;
@@ -13,6 +24,7 @@
 .App a{
   color: #fbfbfd;
    text-decoration: none;
+   transition: all 0.5s;
 }
 .App a:hover{
   color: #1dd1a1;

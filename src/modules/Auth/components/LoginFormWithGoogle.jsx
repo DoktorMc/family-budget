@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../../../store/firebase-config";
 import { setProperty } from "./../../../helper/setPropertyToNestedObj";
-import { NavLink } from "react-router-dom";
 import goog from "../../../img/G.png";
 
 export const LoginFormWithGoogle = ({ isExistent }) => {
+  const provider = new GoogleAuthProvider();
+
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
   });
+
   const handleLogin = () => {
     signInWithEmailAndPassword(
       auth,
@@ -24,6 +30,27 @@ export const LoginFormWithGoogle = ({ isExistent }) => {
         alert(error.code, error.message);
       });
   };
+
+  const handleLoginWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        console.log('user Google', user);
+      })
+      .catch((error) => {
+       
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorCode, errorMessage);
+
+        const email = error.customData.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        
+      });
+  }
 
   const onInputChange = (e) => {
     const { value, name } = e.target;
@@ -66,7 +93,10 @@ export const LoginFormWithGoogle = ({ isExistent }) => {
       </button>
       <p className="or">or</p>
       <span className="line"></span>
-      <button className="form-google-login-button">
+      <button
+        className="form-google-login-button"
+        onClick={handleLoginWithGoogle}
+      >
         Login with Google
         <img className="form-google-login-button-img" src={goog} alt="G" />
       </button>
