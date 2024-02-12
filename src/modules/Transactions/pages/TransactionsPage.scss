@@ -6,8 +6,8 @@
 .transaction-page__header {
   display: flex;
   justify-content: space-between;
-  padding: 20px 0px;
-  //  margin-bottom: 10px;
+  padding: 10px 10px;
+  margin-bottom: 10px;
 }
 
 .transactions-filters {
@@ -17,7 +17,7 @@
   color: #fbfbfd;
   padding: 10px 20px;
   border-radius: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
   &__items {
     display: flex;
@@ -28,30 +28,68 @@
 .transaction-page__transactions-information {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 
-  .information-sticker{
+  .information-sticker {
     display: flex;
     flex-direction: column;
     background-color: #37474f;
     padding: 15px 20px;
-    width: 320px ;
+    width: 320px;
     border-radius: 10px;
 
-    &__title{
+    &__title {
       font-size: 14px;
       margin-bottom: 15px;
     }
 
-    &__value{
+    &__value {
       font-size: 25px;
     }
 
-    .expenses{
+    .expenses {
       color: #fe1818;
     }
 
-    .income{
+    .income {
       color: #1dd1a1;
+    }
+  }
+}
+
+.transaction-table {
+  display: flex;
+  flex-direction: column;
+  background-color: #37474f;
+  padding: 15px 20px;
+  border-radius: 10px;
+
+  &__data {
+    &-sorted_part {
+      margin-bottom: 20px;
+
+      &__header {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &__transaction-data {
+        // padding: 10px 15px;
+        display: flex;
+        justify-content: space-around;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 10px 0 5px 20px;
+        padding: 15px;
+        cursor: pointer;
+        &:hover {
+          background-color: #465963;
+        }
+        & span{
+          width: 250px;
+        }
+      }
     }
   }
 }

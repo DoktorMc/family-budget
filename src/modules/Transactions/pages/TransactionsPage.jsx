@@ -2,6 +2,7 @@ import React from 'react';
 import FiltersComponent from './../components/FiltersComponent';
 import './TransactionsPage.scss';
 import TransactionInformation from '../components/TransactionInformation';
+import TableComponent from '../components/TableComponent';
 
 const Trasactions = () => {
   return (
@@ -16,6 +17,7 @@ const Trasactions = () => {
       </div>
       <FiltersComponent />
       <TransactionInformation />
+      <TableComponent/>
     </div>
   );
 }
