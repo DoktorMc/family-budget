@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./modules/Navbar/pages/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import LogInPage from "./modules/Auth/pages/LogInPage";
-import "./App.css";
+import "./App.scss";
 import { auth } from "./store/firebase-config";
 import { setUser, setLoading } from "./store/slices/userSlise";
 import LoaderSpinCube from "./helper/loader/loaderSpinCube";

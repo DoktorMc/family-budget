@@ -1,0 +1,38 @@
+@font-face {
+  font-family: comfortaaREG;
+  src: url("./fonts/comfortaa/Comfortaa-Regular.woff2") format("woff2");
+}
+
+ul,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+.outlet-container {
+  padding: 30px 60px;
+  height: inherit;
+  width: 100%; 
+}
+
+.App {
+  display: flex;
+  background-color: #263238;
+  color: #fbfbfd;
+  font-family: comfortaaREG;
+  min-height: 100vh;
+
+  a {
+    color: #fbfbfd;
+    text-decoration: none;
+    transition: all 0.5s;
+
+    :hover {
+      color: #1dd1a1;
+    }
+  }
+}
+
+ul li {
+  list-style: none;
+}
