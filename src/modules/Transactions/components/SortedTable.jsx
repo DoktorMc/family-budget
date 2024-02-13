@@ -13,24 +13,34 @@ const SortedTable = ({ data }) => {
     console.log("item: ", item);
     if (!groupedData[item.date]) {
       groupedData[item.date] = [];
-      groupTotalAmount[item.date] = [];
     }
     groupedData[item.date].push(item);
+  });
+
+  datas.forEach((item) => {
+    console.log("item: ", item);
+    if (!groupTotalAmount[item.date]) {
+      groupTotalAmount[item.date] = [];
+    }
     groupTotalAmount[item.date].push(item.amount);
   });
 
-  console.log(
-    "Group",
-    Object.keys(groupedData).map((date , index) => date)
-  );
+  const itemAmount = (item) => {
+    let sum = groupTotalAmount[item].reduce((acc, curr) => acc + curr, 0);
+    return sum
+  };
 
   return (
     <div className="transaction-table__data">
-      {Object.keys(groupedData).map(({date, amount}, index) => (
+      {Object.keys(groupedData).map((date, index) => (
         <div className="transaction-table__data-sorted_part" key={index}>
           <div className="transaction-table__data-sorted_part__header">
             <h3>{date}</h3>
-            <span>{}</span>;
+            {groupTotalAmount.date !== date ? (
+              <span>{itemAmount(date)} USD</span>
+            ) : (
+              <span>???</span>
+            )}
           </div>
 
           {groupedData[date].map((item) => (
