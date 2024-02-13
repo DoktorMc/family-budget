@@ -82,12 +82,15 @@
         font-weight: 600;
         margin: 10px 0 5px 20px;
         padding: 15px;
+        border-radius: 10px;
+        transition: all 0.5s;
         cursor: pointer;
         &:hover {
           background-color: #465963;
         }
         & span{
           width: 250px;
+          
         }
       }
     }
