@@ -7,7 +7,7 @@
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .transactions-filters {
@@ -63,36 +63,70 @@
   background-color: #37474f;
   padding: 15px 20px;
   border-radius: 10px;
+  overflow-y: scroll;
+  height: 62vh;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    &-track {
+      background: #37474f;
+    }
+    &-thumb {
+      background-color: #1dd1a173; /* колір скролбару */
+      border-radius: 10px; /* заокруглення скролбару */
+      border: 3px solid   #37474f;
+    }
+  }
 
   &__data {
-    &-sorted_part {
+    &__sorted-part {
       margin-bottom: 20px;
 
       &__header {
         margin-bottom: 10px;
         display: flex;
         justify-content: space-between;
+        padding: 5px;
+
+        &__total-amount {
+          font-size: 18px;
+          font-weight: 700;
+          color: #8aaaba;
+        }
       }
 
       &__transaction-data {
         // padding: 10px 15px;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         font-size: 16px;
-        font-weight: 600;
-        margin: 10px 0 5px 20px;
-        padding: 15px;
+        font-weight: 400;
+        padding: 10px 5px;
         border-radius: 10px;
         transition: all 0.5s;
         cursor: pointer;
         &:hover {
           background-color: #465963;
         }
-        & span{
+        & span {
           width: 250px;
-          
+          padding: 4px;
+          &:last-child {
+            text-align: right;
+          }
         }
+      }
+      &__underline {
+        border-top: 1px dotted #8aaaba;
+        width: inherit;
+        margin-top: 5px;
       }
     }
   }
 }
+  .add-transaction__form{
+    display: flex;
+    background-color: #37474f;
+    padding: 20px;
+    border-radius: 10px;
+  }

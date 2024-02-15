@@ -7,6 +7,7 @@ import {
 import { auth } from "../../../store/firebase-config";
 import { setProperty } from "./../../../helper/setPropertyToNestedObj";
 import goog from "../../../img/G.png";
+import CustomButton from "../../Custom/Button/CustomButton";
 
 export const LoginFormWithGoogle = ({ isExistent }) => {
   const provider = new GoogleAuthProvider();
@@ -88,9 +89,11 @@ export const LoginFormWithGoogle = ({ isExistent }) => {
         placeholder="password"
         onChange={onInputChange}
       />
-      <button className="form-login-button" onClick={handleLogin}>
-        Login
-      </button>
+      <CustomButton
+        buttonTheme="login"
+        title="Login"
+        handleProp={handleLogin}
+      />
       <p className="or">or</p>
       <span className="line"></span>
       <button

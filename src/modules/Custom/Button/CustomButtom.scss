@@ -1,0 +1,20 @@
+.custom-button {
+  padding: 5px 10px;
+  width: auto;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.5s;
+  border: none;
+  background-color: #1dd1a1;
+  &:hover {
+    box-shadow: 0 0 20px #1dd1a1;
+  }
+}
+.login {
+  margin: 10px 0 25px 0;
+  width: 150px;
+  font-size: 20px;
+  font-weight: 600;
+}

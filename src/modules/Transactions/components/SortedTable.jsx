@@ -33,11 +33,13 @@ const SortedTable = ({ data }) => {
   return (
     <div className="transaction-table__data">
       {Object.keys(groupedData).map((date, index) => (
-        <div className="transaction-table__data-sorted_part" key={index}>
-          <div className="transaction-table__data-sorted_part__header">
+        <div className="transaction-table__data__sorted-part" key={index}>
+          <div className="transaction-table__data__sorted-part__header">
             <h3>{date}</h3>
             {groupTotalAmount.date !== date ? (
-              <span>{itemAmount(date)} USD</span>
+              <span className="transaction-table__data__sorted-part__header__total-amount">
+                {itemAmount(date)} USD
+              </span>
             ) : (
               <span>???</span>
             )}
@@ -45,17 +47,20 @@ const SortedTable = ({ data }) => {
 
           {groupedData[date].map((item) => (
             <div
-              className="transaction-table__data-sorted_part__transaction-data"
+              className="transaction-table__data__sorted-part__transaction-data"
               key={item.id}
             >
               <span>{item.category}</span>
+              <span>{item.user}</span>
               <span>{item.note}</span>
               {!item.photo ? <span>------</span> : <span>{item.photo}</span>}
-              <span>{item.amount}</span>
+              <span>{item.amount} USD</span>
             </div>
           ))}
+          <div className="transaction-table__data__sorted-part__underline"></div>
         </div>
       ))}
+      
     </div>
   );
 };

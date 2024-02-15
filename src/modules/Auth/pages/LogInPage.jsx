@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginFormWithGoogle from "../components/LoginFormWithGoogle";
 import SignupComponent from "../components/SignupComponent";
-import "./LogInPage.css";
+import "./LogInPage.scss";
 import LoginIMG from '../../../img/loginPageIMG.png'
 
 
