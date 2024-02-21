@@ -29,7 +29,7 @@ const operations = [
     amount: 3000,
   },
   {
-    id: 2,
+    id: 4,
     date: "15.02.2024",
     category: "coffee",
     user: "USER",
@@ -38,7 +38,7 @@ const operations = [
     amount: -1.5,
   },
   {
-    id: 2,
+    id: 5,
     date: "15.02.2024",
     category: "coffee",
     user: "USER",
@@ -47,7 +47,7 @@ const operations = [
     amount: -25.6,
   },
   {
-    id: 2,
+    id: 6,
     date: "17.02.2024",
     category: "coffee",
     user: "USER",
@@ -56,7 +56,7 @@ const operations = [
     amount: -25.6,
   },
   {
-    id: 2,
+    id: 7,
     date: "15.02.2024",
     category: "ssssss",
     user: "USER",
@@ -65,7 +65,7 @@ const operations = [
     amount: 324,
   },
   {
-    id: 2,
+    id: 8,
     date: "17.02.2024",
     category: "coffee",
     user: "USER",
@@ -74,7 +74,7 @@ const operations = [
     amount: -25.6,
   },
   {
-    id: 2,
+    id: 9,
     date: "17.02.2024",
     category: "coffee",
     user: "USER",
