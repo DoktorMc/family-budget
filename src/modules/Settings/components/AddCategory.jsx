@@ -1,21 +1,57 @@
-import React from 'react';
+import React from "react";
 import sprite from "../../../img/navbar.svg";
 import Select, { components } from "react-select";
+// import icon from "family-budget-3404f.appspot.com/categories_icon/account.png";
+// import { icon } from 'gs://family-budget-3404f.appspot.com/categories_icon/account.png';
 
-const { Option } = components;
-const selectOptions = (props) => {
-  <Option {...props}>
-    <svg className="navbar-icon">
-      <use xlinkHref={props.data.icon} />
-    </svg>
+// const { Option } = components;
+// const selectOptions = (props) => {
+//   console.log("props", props);
+//   <Option {...props}>
+//     {/* <svg className="navbar-icon">
+//       <use xlinkHref={sprite + props.data.icon} />
+//     </svg> */}
+//   </Option>;
+// };
+
+const Control = ({ children, ...props }) => (
+  <components.Control {...props}>
     <span>{props.data.label}</span>
-  </Option>
-}
+  </components.Control>
+);
 
+const Option = (props) => {
+  return (
+    <div
+      style={{
+        padding: "2px",
+        display: "flex",
+        border: "1px solid",
+        justifyContent: "space-between",
+      }}
+    > 
+      <components.Option {...props}>
+       <img
+          src={props.data.icon}
+          alt={props.data.icon}
+          width="24px"
+          height="24px"
+        />
+      </components.Option>
+    </div>
+  );
+};
 const options = [
-  { label: "TEst 1", value: "1", icon: sprite + "#wallet" },
-  { label: "TEst 2", value: "2", icon: sprite + "#dashboard" },
-  { label: "TEst 3", value: "3", icon: sprite + "#settings" },
+  {
+    label: "TEst 1",
+    value: "1",
+    icon: "https://firebasestorage.googleapis.com/v0/b/family-budget-3404f.appspot.com/o/categories_icon%2Faccount.png?alt=media&token=9266e01e-41a0-42f3-8b1f-d28f2f7b9186",
+  },
+  {
+    label: "TEst 2",
+    value: "2",
+    icon: "https://firebasestorage.googleapis.com/v0/b/family-budget-3404f.appspot.com/o/categories_icon%2Faccount.png?alt=media&token=9266e01e-41a0-42f3-8b1f-d28f2f7b9186",
+  },
 ];
 
 const AddCategory = () => {
@@ -25,7 +61,8 @@ const AddCategory = () => {
       <div className="catgories-settings__add-categories__items">
         <div className="catgories-settings__add-categories__items__item items-icon">
           <label htmlFor="icon">Icon</label>
-          <Select options={options} components={{ selectOptions }} id="icon" />
+          <Select options={options} components={{ Option }} id="icon" />
+
           {/* <select name="icon" id="icon">
             <option value="value1">
               <div>
@@ -54,6 +91,6 @@ const AddCategory = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AddCategory;
