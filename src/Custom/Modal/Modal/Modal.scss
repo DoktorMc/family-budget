@@ -1,0 +1,49 @@
+.wrap {
+  background: rgba(144, 143, 143, 0.767);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+  animation: show 0.5s ease;
+}
+
+.content {
+  position: relative;
+  top: -245px;
+  border-radius: 10px;
+  color: #fbfbfd;
+  transition: all 0.5s;
+  animation: show 0.8s ease;
+}
+
+@keyframes show {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.closeButton {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: -12px;
+  right: -12px;
+  padding: 2px;
+  margin: 0;
+  z-index: 20;
+  background-color: #37474f;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #fbfbfd;
+  transition: all 0.5s;
+}
+
+.closeButton:hover {
+ background-color: #667c88;
+}

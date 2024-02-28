@@ -3,14 +3,14 @@ import FiltersComponent from './../components/FiltersComponent';
 import './TransactionsPage.scss';
 import TransactionInformation from '../components/TransactionInformation';
 import TableComponent from '../components/TableComponent';
-import CustomButton from '../../Custom/Button/CustomButton';
+import CustomButton from '../../../Custom/Button/CustomButton';
 import AddTransactionForm from '../components/AddTransactionForm';
-import Modal from './../../Custom/Modal/Modal/Modal';
+import Modal from './../../../Custom/Modal/Modal/Modal';
 
 const Trasactions = () => {
-   const [isModalActive, setModalActive] = useState(false);
+  const [isModalActive, setModalActive] = useState(false);
 
-   const handleModalOpen = () => {
+  const handleModalOpen = () => {
      setModalActive(true);
    };
    const handleModalClose = () => {
@@ -23,7 +23,7 @@ const Trasactions = () => {
         <div>
           {isModalActive && (
             <Modal title="some modal title" onClose={handleModalClose}>
-              Hello world
+              <AddTransactionForm onCloseForm={handleModalClose}/>
             </Modal>
           )}
         </div>
@@ -31,7 +31,6 @@ const Trasactions = () => {
           <span>Date Range Picker</span>
         </div>
       </div>
-      <AddTransactionForm />
       <FiltersComponent />
       <TransactionInformation />
       <TableComponent />

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LogInPage from "./modules/Auth/pages/LogInPage";
 import "./App.scss";
 import { auth } from "./store/firebase-config";
-import { setUser, setLoading } from "./store/slices/userSlise";
+import { setUser, setLoading } from "./store/slices/userSlice";
 import LoaderSpinCube from "./helper/loader/loaderSpinCube";
 
 function App() {

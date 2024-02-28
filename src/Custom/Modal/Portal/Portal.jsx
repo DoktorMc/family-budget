@@ -12,15 +12,16 @@ const createContainer = (options) => {
   const portalContainer = document.createElement("div");
 
   portalContainer.setAttribute("id", id);
+  portalContainer.setAttribute("data-testid", `portalContainer-${id}`);
   mountNode.appendChild(portalContainer);
 };
 
 const PORTAL_ERROR_MESSAGE =
   "There is no portal container in markup. Please add portal container with proper id attribute.";
 
-const Portal = (...props) => {
+const Portal = (props) => {
   const { id, children } = props;
-  const [container, setContainer] = useState<HTMLElement>(null);
+  const [container, setContainer] = useState();
 
   useEffect(() => {
     if (id) {

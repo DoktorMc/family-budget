@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import sprite from '../../../img/navbar.svg'
 import { useDispatch } from 'react-redux';
-import { removeUser } from "../../../store/slices/userSlise";
+import { removeUser } from "../../../store/slices/userSlice";
 import { signOut } from "firebase/auth";
 import { auth } from '../../../store/firebase-config'
 

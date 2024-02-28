@@ -7,7 +7,7 @@ const MODAL_CONTAINER_ID = "modal-container-id";
 const Modal = (props) => {
   const { title, onClose, children } = props;
 
-  const rootRef = useRef < HTMLDivElement > null;
+  const rootRef = useRef(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -44,7 +44,6 @@ const Modal = (props) => {
 
   return isMounted ? (
     <Portal id={MODAL_CONTAINER_ID}>
-      {" "}
       <div className="wrap" ref={rootRef} data-testid="wrap">
         <div className="content">
           <button
@@ -55,7 +54,6 @@ const Modal = (props) => {
           >
             Х
           </button>
-          <p className="title">{title}</p>
           {children}
         </div>
       </div>

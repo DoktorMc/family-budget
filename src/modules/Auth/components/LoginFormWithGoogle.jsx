@@ -7,7 +7,7 @@ import {
 import { auth } from "../../../store/firebase-config";
 import { setProperty } from "./../../../helper/setPropertyToNestedObj";
 import goog from "../../../img/G.png";
-import CustomButton from "../../Custom/Button/CustomButton";
+import CustomButton from "./../../../Custom/Button/CustomButton";
 
 export const LoginFormWithGoogle = ({ isExistent }) => {
   const provider = new GoogleAuthProvider();
@@ -35,23 +35,20 @@ export const LoginFormWithGoogle = ({ isExistent }) => {
   const handleLoginWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        console.log('user Google', user);
+        console.log("user Google", user);
       })
       .catch((error) => {
-       
         const errorCode = error.code;
         const errorMessage = error.message;
         alert(errorCode, errorMessage);
 
         const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
-        
       });
-  }
+  };
 
   const onInputChange = (e) => {
     const { value, name } = e.target;

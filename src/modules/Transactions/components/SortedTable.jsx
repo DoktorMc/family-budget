@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import moment from "moment/moment";
 
 const SortedTable = ({ data }) => {
   const groupedData = {};
   const groupTotalAmount = {};
-  console.log("Total Amount", groupTotalAmount);
-  const datas = data.sort(
-    (a, b) => moment(a.date, "DD.MM.YY") - moment(b.date, "DD.MM.YY")
+  
+  const testData = data.map((item) =>( {
+    ...item.transaction,
+  }))
+
+  console.log("testData", testData);
+  const datas = testData.sort(
+    (a, b) =>
+      moment(a.date, "DD.MM.YY") -
+      moment(b.date, "DD.MM.YY")
   );
 
   datas.forEach((item) => {
-    console.log("item: ", item);
     if (!groupedData[item.date]) {
       groupedData[item.date] = [];
     }
@@ -18,7 +24,6 @@ const SortedTable = ({ data }) => {
   });
 
   datas.forEach((item) => {
-    console.log("item: ", item);
     if (!groupTotalAmount[item.date]) {
       groupTotalAmount[item.date] = [];
     }
@@ -27,7 +32,7 @@ const SortedTable = ({ data }) => {
 
   const itemAmount = (item) => {
     let sum = groupTotalAmount[item].reduce((acc, curr) => acc + curr, 0);
-    return sum
+    return sum;
   };
 
   return (
@@ -60,7 +65,6 @@ const SortedTable = ({ data }) => {
           <div className="transaction-table__data__sorted-part__underline"></div>
         </div>
       ))}
-      
     </div>
   );
 };
