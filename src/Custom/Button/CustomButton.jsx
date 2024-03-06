@@ -1,13 +1,21 @@
-import React from 'react';
-import './CustomButtom.scss';
+import React from "react";
+import "./CustomButtom.scss";
 
-const CustomButton = ({buttonTheme, title, handleProp, type }) => {
+
+const CustomButton = ({ buttonTheme, title, handleProp, type }) => {
   let buttonClass = "custom-button";
   if (buttonTheme) {
     buttonClass += " " + buttonTheme;
   }
   return (
     <button type={type} className={buttonClass} onClick={handleProp}>
+      {/* {buttonTheme === "edit" || buttonTheme === "delete" ? (
+        <svg className="navbar-icon">
+          <use xlinkHref={title} />
+        </svg>
+      ) : (<span>{ title }</span>)
+        
+      } */}
       {title}
     </button>
   );

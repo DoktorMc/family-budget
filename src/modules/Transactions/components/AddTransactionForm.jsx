@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import CustomButton from "./../../../Custom/Button/CustomButton";
-import arrowDown from "./../../../img/expand_more.svg";
-import Modal from "../../../Custom/Modal/Modal/Modal";
 import { setProperty } from "../../../helper/setPropertyToNestedObj";
 import { useDispatch } from "react-redux";
 import { addTransactionToFirestore } from "../../../store/slices/transactionsSlice";

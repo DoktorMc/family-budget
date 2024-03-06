@@ -18,3 +18,19 @@
   font-size: 20px;
   font-weight: 600;
 }
+
+.edit {
+  background-color: #12c48b70;
+  &:hover{
+    background-color: #12c48bd0;
+    box-shadow: 0 0 20px #12c48b;
+  }
+}
+
+.delete {
+  background-color: #fa232370;
+  &:hover{
+    background-color: #fa2323d0;
+    box-shadow: 0 0 20px #fa2323;
+  }
+}

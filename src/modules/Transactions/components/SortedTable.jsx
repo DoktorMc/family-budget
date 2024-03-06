@@ -4,36 +4,39 @@ import moment from "moment/moment";
 const SortedTable = ({ data }) => {
   const groupedData = {};
   const groupTotalAmount = {};
-  
-  const testData = data.map((item) =>( {
-    ...item.transaction,
-  }))
 
-  console.log("testData", testData);
-  const datas = testData.sort(
+  const datas = [...data].sort(
     (a, b) =>
-      moment(a.date, "DD.MM.YY") -
-      moment(b.date, "DD.MM.YY")
+      moment(a.transaction.date, "DD.MM.YY") -
+      moment(b.transaction.date, "DD.MM.YY")
   );
 
   datas.forEach((item) => {
-    if (!groupedData[item.date]) {
-      groupedData[item.date] = [];
+    if (!groupedData[item.transaction.date]) { 
+      groupedData[item.transaction.date] = [];
     }
-    groupedData[item.date].push(item);
+    groupedData[item.transaction.date].push(item);
   });
 
   datas.forEach((item) => {
-    if (!groupTotalAmount[item.date]) {
-      groupTotalAmount[item.date] = [];
+    if (!groupTotalAmount[item.transaction.date]) {
+      groupTotalAmount[item.transaction.date] = [];
     }
-    groupTotalAmount[item.date].push(item.amount);
+    groupTotalAmount[item.transaction.date].push(item.transaction.amount);
   });
 
   const itemAmount = (item) => {
-    let sum = groupTotalAmount[item].reduce((acc, curr) => acc + curr, 0);
+    let sum = groupTotalAmount[item].reduce(
+      (acc, curr) => (Number(acc) + Number(curr)).toFixed(2),
+      0
+    );
     return sum;
   };
+
+  const handleTableItemClick = (item) => { 
+      // e.preventDefault();
+    console.log('Click to table item ', item);
+  }
 
   return (
     <div className="transaction-table__data">
@@ -54,12 +57,17 @@ const SortedTable = ({ data }) => {
             <div
               className="transaction-table__data__sorted-part__transaction-data"
               key={item.id}
+              onClick={()=>handleTableItemClick(item)}
             >
-              <span>{item.category}</span>
-              <span>{item.user}</span>
-              <span>{item.note}</span>
-              {!item.photo ? <span>------</span> : <span>{item.photo}</span>}
-              <span>{item.amount} USD</span>
+              <span>{item.transaction.category}</span>
+              <span>{item.transaction.user}</span>
+              <span>{item.transaction.note}</span>
+              {!item.transaction.photo ? (
+                <span>------</span>
+              ) : (
+                <span>{item.transaction.photo}</span>
+              )}
+              <span>{item.transaction.amount} USD</span>
             </div>
           ))}
           <div className="transaction-table__data__sorted-part__underline"></div>

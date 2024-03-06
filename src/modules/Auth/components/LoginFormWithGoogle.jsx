@@ -25,7 +25,6 @@ export const LoginFormWithGoogle = ({ isExistent }) => {
     )
       .then(() => {
         const user = auth.currentUser;
-        console.log("user", user);
       })
       .catch((error) => {
         alert(error.code, error.message);
@@ -38,7 +37,6 @@ export const LoginFormWithGoogle = ({ isExistent }) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        console.log("user Google", user);
       })
       .catch((error) => {
         const errorCode = error.code;

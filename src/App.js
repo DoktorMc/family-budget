@@ -13,7 +13,6 @@ function App() {
   const navigate = useNavigate();
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      console.log("auth USER", authUser);
       if (authUser) {
         dispatch(
           setUser({
@@ -34,7 +33,6 @@ function App() {
   const user = useSelector((state) => state.data.user.user);
 
   const isLoading = useSelector((state) => state.data.user.isLoading);
-  console.log("is Loading", isLoading);
 
   return (
     <main className="App">

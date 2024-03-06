@@ -1,0 +1,124 @@
+.catgories-settings {
+  color: #fbfbfd;
+  font-family: comfortaaREG;
+  &__add-categories {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: dotted 1px #7f9fb1;
+    padding: 20px 0 40px;
+    &__title {
+      font-size: 25px;
+    }
+    &__items {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      &__item {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+
+        & input,
+        select {
+          padding: 8px;
+          margin-top: 3px;
+          font-size: 16px;
+          border-radius: 15px;
+          border: none;
+          transition: box-shadow 0.5s;
+
+          &:focus-visible {
+            outline: none;
+            box-shadow: 0 0 20px #1dd1a1;
+          }
+        }
+      }
+      & .items-name {
+        margin-right: 20px;
+      }
+      & .items-type {
+        width: 135px;
+      }
+    }
+  }
+
+  .manage-categories {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 30px;
+    &__title {
+      font-size: 25px;
+    }
+
+    &__table {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin: 10px 0;
+      &__items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: inherit;
+        border: dotted 1px #7f9fb1;
+        border-radius: 20px;
+        margin: 10px 10px;
+        padding: 10px;
+        &__title {
+          font-size: 20px;
+          &::first-letter {
+            text-transform: uppercase;
+          }
+        }
+
+        &__list {
+          display: flex;
+          flex-direction: column;
+          width: inherit;
+          overflow-y: scroll;
+          height: 49vh;
+          &::-webkit-scrollbar {
+            width: 10px;
+            &-track {
+              background: #37474f;
+            }
+            &-thumb {
+              background-color: #1dd1a173; /* колір скролбару */
+              border-radius: 10px; /* заокруглення скролбару */
+              border: 3px solid #37474f;
+            }
+          }
+
+          &__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+            border-radius: 10px;
+            padding: 5px 10px;
+            transition: all 0.5s;
+            font-size: 18px;
+            &:hover {
+              background-color: #465963;
+            }
+            &__buttons {
+              display: flex;
+              justify-content: space-around;
+
+              width: 120px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.add-category-button {
+  margin-left: 20px;
+  height: 35px;
+}

@@ -4,8 +4,8 @@ import TabList from "@mui/joy/TabList";
 import Tab, { tabClasses } from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
 import React from "react";
-import "./SettingsPage.scss";
 import CategoriesSettings from "../components/CategoriesSettings";
+import "./SettingsPage.scss";
 
 const SettingsPage = () => {
   return (

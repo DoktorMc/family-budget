@@ -5,14 +5,14 @@ import { auth } from "../../../store/firebase-config";
 
 const NavBarUserInformationComponent = () => {
   const userCurrent = auth.currentUser;
-  console.log("Curr", userCurrent);
+
   const user = useSelector((state) => state.data.user.user);
-  console.log(user);
+
   return (
     <div className="navbar-user">
       {userCurrent.photoURL ? (
         <Avatar size="lg" alt={user.userName} src={userCurrent.photoURL} />
-      ) : ( 
+      ) : (
         <Avatar sx={{ fontSize: 25 }} size="lg">
           {user.userName.charAt(0).toUpperCase()}
         </Avatar>
