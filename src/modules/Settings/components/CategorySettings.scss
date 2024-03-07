@@ -1,5 +1,7 @@
+@import "../../../styleVariables.scss";
+
 .catgories-settings {
-  color: #fbfbfd;
+  color: $wite-color;
   font-family: comfortaaREG;
   &__add-categories {
     display: flex;
@@ -19,21 +21,6 @@
         display: flex;
         flex-direction: column;
         width: 250px;
-
-        & input,
-        select {
-          padding: 8px;
-          margin-top: 3px;
-          font-size: 16px;
-          border-radius: 15px;
-          border: none;
-          transition: box-shadow 0.5s;
-
-          &:focus-visible {
-            outline: none;
-            box-shadow: 0 0 20px #1dd1a1;
-          }
-        }
       }
       & .items-name {
         margin-right: 20px;
@@ -64,7 +51,7 @@
         flex-direction: column;
         align-items: center;
         width: inherit;
-        border: dotted 1px #7f9fb1;
+        border: dotted 1px $border-color;
         border-radius: 20px;
         margin: 10px 10px;
         padding: 10px;
@@ -103,7 +90,7 @@
             transition: all 0.5s;
             font-size: 18px;
             &:hover {
-              background-color: #465963;
+              background-color: $gray-hover-color;
             }
             &__buttons {
               display: flex;
@@ -115,6 +102,27 @@
         }
       }
     }
+  }
+}
+
+.edit__category__form {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 20px;
+  background-color: $gray-color;
+  border-radius: 10px;
+  width: 380px;
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+
+    width: 120px;
   }
 }
 

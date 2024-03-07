@@ -1,7 +1,4 @@
-@font-face {
-  font-family: comfortaaREG;
-  src: url("./fonts/comfortaa/Comfortaa-Regular.woff2") format("woff2");
-}
+@import "./styleVariables.scss";
 
 ul,
 p,
@@ -14,20 +11,33 @@ h4 {
   font-family: comfortaaREG;
 }
 
-input, select{
+input,
+select {
   font-family: comfortaaREG;
+
+  padding: 8px;
+  margin-top: 3px;
+  font-size: 16px;
+  border-radius: 15px;
+  border: none;
+  transition: box-shadow 0.5s;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 20px #1dd1a1;
+  }
 }
 
 .outlet-container {
   padding: 15px 60px;
   height: inherit;
-  width: 100%; 
+  width: 100%;
 }
 
 .App {
   display: flex;
-  background-color: #263238;
-  color: #fbfbfd;
+  background-color: $base-color;
+  color: $wite-color;
   font-family: comfortaaREG;
   min-height: 100vh;
 
@@ -37,7 +47,7 @@ input, select{
     transition: all 0.5s;
 
     :hover {
-      color: #1dd1a1;
+      color: $hover-shadow;
     }
   }
 }
