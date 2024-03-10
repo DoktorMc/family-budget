@@ -1,15 +1,20 @@
+@import "../../styleVariables.scss";
+
 .custom-button {
+  display: flex;
+  justify-content: center;
+  align-content: center;
   padding: 5px 10px;
-  width: auto;
+  // width: auto;
   font-size: 18px;
   font-weight: 500;
   border-radius: 5px;
   cursor: pointer;
   transition: box-shadow 0.5s;
   border: none;
-  background-color: #1dd1a1;
+  background-color: $green-button;
   &:hover {
-    box-shadow: 0 0 20px #1dd1a1;
+    box-shadow: 0 0 20px $green-button;
   }
 }
 .login {

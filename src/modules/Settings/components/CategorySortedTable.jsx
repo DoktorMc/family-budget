@@ -29,7 +29,10 @@ const CategorySortedTable = ({ categoryType }) => {
       <div>
         {isModalActive && (
           <Modal title="some modal title" onClose={handleModalClose}>
-            <EditCategoryForm categoryForEdit={categoryForEdit} />
+            <EditCategoryForm
+              categoryForEdit={categoryForEdit}
+              closeModal={handleModalClose}
+            />
           </Modal>
         )}
       </div>

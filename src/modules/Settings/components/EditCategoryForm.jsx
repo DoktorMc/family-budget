@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "./../../../Custom/Button/CustomButton";
 import doneCancelSprite from "./../../../img/done-cancel-sprite-ico.svg";
+import { setProperty } from "../../../helper/setPropertyToNestedObj";
+import { useDispatch } from "react-redux";
+import { editCategory } from "../../../store/slices/categorySlice";
 
-const EditCategoryForm = ({ categoryForEdit }) => {
+const EditCategoryForm = ({ categoryForEdit, closeModal }) => {
+  const dispatch = useDispatch();
+  const [newNameCategory, setNewNameCategory] = useState('');
+
   console.log("Item for edit category", categoryForEdit);
 
-  const handleChange = () => {};
+  const handleChange = (e) => { 
+    e.preventDefault();
+    console.log('new name category', newNameCategory);
+    dispatch(editCategory({ id: categoryForEdit.id, name: newNameCategory}));
+    closeModal();
+  };
 
+
+  const onImputChanges = (e) => {
+    setNewNameCategory(e.target.value);
+  };
+  
+  const handleCloseModal = () => { 
+    closeModal()
+  }
   return (
-    <div className="edit__category__form">
+    <form className="edit__category__form" onSubmit={handleChange}>
       {/* <div className="manage-categories__table__items__list__item"> */}
 
       <div className="edit__category__form__items">
@@ -18,8 +37,9 @@ const EditCategoryForm = ({ categoryForEdit }) => {
           type="text"
           name="name"
           id="edit_name_category"
+          // value={newNameCategory}
           defaultValue={categoryForEdit.category.name}
-          onChange={handleChange}
+          onChange={onImputChanges}
         />
       </div>
       <div className="edit__category__form__buttons">
@@ -30,7 +50,7 @@ const EditCategoryForm = ({ categoryForEdit }) => {
             </svg>
           }
           buttonTheme="edit"
-          // handleProp={handleModalOpen}
+          type="onSubmit"
         />
         <CustomButton
           title={
@@ -39,11 +59,11 @@ const EditCategoryForm = ({ categoryForEdit }) => {
             </svg>
           }
           buttonTheme="delete"
-          // handleProp={}
+          handleProp={handleCloseModal}
         />
       </div>
       {/* </div> */}
-    </div>
+    </form>
   );
 };
 

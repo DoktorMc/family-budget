@@ -9,14 +9,7 @@ const CustomButton = ({ buttonTheme, title, handleProp, type }) => {
   }
   return (
     <button type={type} className={buttonClass} onClick={handleProp}>
-      {/* {buttonTheme === "edit" || buttonTheme === "delete" ? (
-        <svg className="navbar-icon">
-          <use xlinkHref={title} />
-        </svg>
-      ) : (<span>{ title }</span>)
-        
-      } */}
-      {title}
+      {title} 
     </button>
   );
 };

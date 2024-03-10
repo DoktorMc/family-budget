@@ -6,7 +6,7 @@ import { fetchCategoies } from "../../../store/slices/categorySlice";
 
 
 
-const ManageCateries = ({ data }) => {
+const ManageCateries = ({ data}) => {
   const groupedData = {};
   console.log("data", data);
   console.log("group data", groupedData);
