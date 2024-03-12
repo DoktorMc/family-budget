@@ -1,31 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import arrow from "./expand_more.svg";
 
 import "./CustomSelector.scss";
-import { create } from "@mui/material/styles/createTransitions";
 import GroupDataTable from "./GroupDataTable";
 
-const genPaths = (o, p, target) => {
-  p = p ?? "";
-
-  const test = Object.keys(o).forEach((e) => {
-    if (typeof o[e] === "object") {
-      o[e] = genPaths(o[e], p + e + ".");
-    } else {
-      o[e] = p + e;
-      console.log("FOR TARGET", target);
-    }
-  });
-
-  console.log("O", test);
-
-  // return o[target];
-};
-
-const groupByNestedProperty = (objects, propertyKey) =>{
+const groupByNestedProperty = (objects, propertyKey) => {
   const groups = {};
 
-  function group(obj, path = "") {
+  const group = (obj, path = "") => {
     for (const key in obj) {
       if (typeof obj[key] === "object" && obj[key] !== null) {
         group(obj[key], path + "." + key);
@@ -40,28 +22,34 @@ const groupByNestedProperty = (objects, propertyKey) =>{
         }
       }
     }
-  }
+  };
 
   objects.forEach((obj) => group(obj));
 
   return groups;
-}
+};
 
 //
-const CustomSelector = ({ data, forGroup, displayName }) => {
-  // const groupedData = {};
-  const [selectedItem, setSelectedItem] = useState(null);
-
+const CustomSelector = ({ data, forGroup, options }) => {
+  // const [selectedItem, setSelectedItem] = useState(null);
+  const [isGroup, setIsGroup] = useState(false);
   const [isActive, setIsActive] = useState(false);
-
-  console.log("TEST ITEM FOR SELECTED", data);
   const handleActive = () => {
     setIsActive(!isActive);
   };
+  let groupedData = {};
 
-  const groupedData = groupByNestedProperty(data, forGroup);
+  useEffect(() => {
+    if (forGroup) {
+      setIsGroup(true);
+    }
+  }, [forGroup]);
 
-  console.log("TEST GROUP", groupedData);
+  if (forGroup) {
+    groupedData = groupByNestedProperty(data, forGroup);
+  } else {
+    groupedData = data;
+  }
 
   return (
     <div className="custom-selector">
@@ -82,15 +70,28 @@ const CustomSelector = ({ data, forGroup, displayName }) => {
       </div>
       <div className={`custom-selector__options ${isActive ? "active" : ""}`}>
         {Object.keys(groupedData).map((data, index) => (
-          <div key={index} className="custom-selector__options__table__items">
-            <span className="custom-selector__options__table__items__title">
-              {data} category
-            </span>
-            <GroupDataTable
-              data={groupedData[data]}
-              displayName={displayName}
-            />
-          </div>
+          <>
+            {isGroup ? (
+              <div
+                key={index}
+                className="custom-selector__options__table__items"
+              >
+                <span className="custom-selector__options__table__items__title">
+                  {data} category
+                </span>
+                <GroupDataTable
+                  data={groupedData[data]}
+                  OptionComponent={options}
+                  isGroup={isGroup}
+                />
+              </div>
+            ) : (
+              <GroupDataTable
+                data={groupedData[data]}
+                OptionComponent={options}
+              />
+            )}
+          </>
         ))}
       </div>
     </div>
