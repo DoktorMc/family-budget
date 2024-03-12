@@ -1,19 +1,18 @@
-import React from 'react';
+import React from "react";
 
-const GroupDataTable = ({ data, displayName }) => {
-  console.log('DATA SORTED', data);
+const GroupDataTable = ({ data, isGroup, OptionComponent }) => {
   return (
     <div className="custom-selector__options__table__items__group">
-      {data.map((item, index) => (
-        <div
-          key={index}
-          className="custom-selector__options__table__items__group-item"
-        >
-          <span>{item[displayName]}</span>
-        </div>
-      ))}
+      {isGroup ? (
+        <>
+          {data.map((item) => { return(<OptionComponent data={item} />)}
+          )}
+        </>
+      ) : (
+        <OptionComponent data={data} />
+      )}
     </div>
   );
-}
+};
 
 export default GroupDataTable;

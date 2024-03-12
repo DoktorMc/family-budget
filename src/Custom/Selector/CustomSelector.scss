@@ -32,24 +32,21 @@
   }
 
   &__options {
-    visibility: hidden;
+    // visibility: hidden;
     background-color: $border-color;
-    height: 0;
+    max-height:0px;
+    overflow:hidden;
+    -webkit-transition:max-height 0.4s linear;
+    -moz-transition:max-height 0.4s linear;
+    transition:max-height 0.4s linear;
     width: inherit;
     border-radius: 10px;
     transition: all 0.5s;
-    & span{
-    visibility: hidden;
-    transition: all 0.2s;
-    }
+
     &.active { 
       padding: 8px;
       margin-top: 5px;
-      visibility: visible;
-      height: 300px;
-      & span{
-        visibility: visible;
-      }
+      max-height: 300px;
     }
   }
 }

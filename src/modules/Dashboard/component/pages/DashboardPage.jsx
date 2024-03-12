@@ -1,6 +1,5 @@
-import React from 'react';
-import CustomSelector from '../../../../Custom/Selector/CustomSelector';
-
+import React from "react";
+import CustomSelector from "../../../../Custom/Selector/CustomSelector";
 
 const testItemsForSelect = [
   {
@@ -33,14 +32,23 @@ const testItemsForSelect = [
   },
 ];
 
+const OptionComponent = ({ ...props }) => {
+  const { data } = props;
+  return (
+    <>
+      <span>{data.name}</span>
+      <span>{data.type }</span>
+    </>
+  );
+};
+
 const DashboardPage = () => {
   return (
     <div>
       DASHBOARD PAGE
-      <CustomSelector data={testItemsForSelect} forGroup='type' displayName='name'/>
+      <CustomSelector data={testItemsForSelect} forGroup='type' options={OptionComponent} />
     </div>
   );
-  
-}
+};
 
 export default DashboardPage;
