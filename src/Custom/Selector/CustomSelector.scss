@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: $gray-color;
+  // background-color: $gray-color;
   width: 250px;
 
   &__select {
@@ -16,6 +16,10 @@
     height: 20px;
     border-radius: 10px;
     padding: 8px;
+
+    &__value {
+      color: $base-color;
+    }
 
     &__arow {
       width: 24px;
@@ -32,21 +36,51 @@
   }
 
   &__options {
-    // visibility: hidden;
-    background-color: $border-color;
-    max-height:0px;
-    overflow:hidden;
-    -webkit-transition:max-height 0.4s linear;
-    -moz-transition:max-height 0.4s linear;
-    transition:max-height 0.4s linear;
+    background-color: $wite-color;
+    max-height: 0px;
+    overflow: hidden;
+    -webkit-transition: max-height 0.4s linear;
+    -moz-transition: max-height 0.4s linear;
+    transition: max-height 0.4s linear;
     width: inherit;
     border-radius: 10px;
     transition: all 0.5s;
+    color: $gray-color;
 
-    &.active { 
+    &.active {
       padding: 8px;
       margin-top: 5px;
       max-height: 300px;
+    }
+
+    &__tab-nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      & li {
+        width: 50%;
+        padding: 3px;
+        text-align: center;
+        border-radius: 10px 10px 0 0;
+        transition: all 0.5s;
+        &::first-letter {
+          text-transform: uppercase;
+        }
+        &.active {
+          background-color: $gray-hover-color;
+          color: $wite-color;
+        }
+      }
+    }
+    &__outlet {
+      margin-top: 7px;
+      padding: 3px;
+    }
+    &__items {
+      &__list {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 }

@@ -3,37 +3,70 @@ import arrow from "./expand_more.svg";
 
 import "./CustomSelector.scss";
 import GroupDataTable from "./GroupDataTable";
+import TabNavItem from "../TabNav/TabNavItem";
+import TabContent from "../TabNav/TabContent";
 
 const groupByNestedProperty = (objects, propertyKey) => {
-  const groups = {};
-
+  const groups = [];
+  let value = [];
   const group = (obj, path = "") => {
     for (const key in obj) {
       if (typeof obj[key] === "object" && obj[key] !== null) {
         group(obj[key], path + "." + key);
+        if (!groups[value]) {
+          groups[value] = [];
+        }
+        groups[value].push(obj);
       } else {
         const fullPath = (path === "" ? key : path + "." + key).slice(1);
         if (key === propertyKey) {
-          const value = obj[key];
-          if (!groups[value]) {
-            groups[value] = [];
-          }
-          groups[value].push(obj);
+          value = obj[key];
         }
       }
     }
   };
-
   objects.forEach((obj) => group(obj));
 
   return groups;
 };
 
+const getPathSelectedItem = (objects, selectedItemKey) => {
+  console.log("OBJ IN SELECTED", objects);
+  const pathItems = [];
+  let value = [];
+  let fullPath = "";
+  const group = (obj, path = "") => {
+    console.log("OBJ", obj);
+    for (const key in obj) {
+      console.log("KEY", key);
+      if (typeof obj[key] === "object" && obj[key] !== null) {
+        group(obj[key], path + "." + key);
+      } else {
+        fullPath = path === "" ? key : (path + "." + key).slice(1);
+        console.log("PATH 2", fullPath);
+        if (key === selectedItemKey) {
+          value = obj[key];
+          if (!pathItems[value]) {
+            pathItems[value] = [];
+          }
+          pathItems[value].push(fullPath);
+        }
+        console.log("VALUE", value);
+      }
+    }
+  };
+
+  group(objects);
+
+  return pathItems;
+};
+
 //
-const CustomSelector = ({ data, forGroup, options }) => {
-  // const [selectedItem, setSelectedItem] = useState(null);
+const CustomSelector = ({ data, forGroup, options, selected }) => {
+  const [selectedItem, setSelectedItem] = useState(null);
   const [isGroup, setIsGroup] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [activeTab, setActiveTab] = useState("tab0");
   const handleActive = () => {
     setIsActive(!isActive);
   };
@@ -51,12 +84,19 @@ const CustomSelector = ({ data, forGroup, options }) => {
     groupedData = data;
   }
 
+  const handleSetSelected = (item) => {
+    setSelectedItem(item);
+    setIsActive(!isActive);
+  };
+
+  console.log("GROUP DATA", groupedData);
+  console.log("SELECTED IETM", selectedItem);
   return (
     <div className="custom-selector">
       <div className="custom-selector__select">
-        <span className="custom-selector__select__value">
-          <img src="" alt="icon" />
-        </span>
+        <div className="custom-selector__select__value">
+          {selectedItem !== null ? selected(selectedItem) : null}
+        </div>
         <span className="custom-selector__select__arow">
           <svg
             className={`custom-selector__select__arow-svg ${
@@ -69,30 +109,39 @@ const CustomSelector = ({ data, forGroup, options }) => {
         </span>
       </div>
       <div className={`custom-selector__options ${isActive ? "active" : ""}`}>
-        {Object.keys(groupedData).map((data, index) => (
+        {isGroup ? (
           <>
-            {isGroup ? (
-              <div
-                key={index}
-                className="custom-selector__options__table__items"
-              >
-                <span className="custom-selector__options__table__items__title">
-                  {data} category
-                </span>
-                <GroupDataTable
-                  data={groupedData[data]}
-                  OptionComponent={options}
-                  isGroup={isGroup}
+            <ul className="custom-selector__options__tab-nav">
+              {Object.keys(groupedData).map((data, index) => (
+                <TabNavItem
+                  key={index}
+                  id={`tab${index}`}
+                  title={data}
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
                 />
-              </div>
-            ) : (
-              <GroupDataTable
-                data={groupedData[data]}
-                OptionComponent={options}
-              />
-            )}
+              ))}
+            </ul>
+            <div className="custom-selector__options__outlet">
+              {Object.keys(groupedData).map((data, index) => (
+                <TabContent id={`tab${index}`} activeTab={activeTab}>
+                  <GroupDataTable
+                    data={groupedData[data]}
+                    OptionComponent={options}
+                    isGroup={isGroup}
+                    selectedItem={(item) => handleSetSelected(item)}
+                  />
+                </TabContent>
+              ))}
+            </div>
           </>
-        ))}
+        ) : (
+          <GroupDataTable
+            data={groupedData}
+            OptionComponent={options}
+            selectedItem={(item) => handleSetSelected(item)}
+          />
+        )}
       </div>
     </div>
   );

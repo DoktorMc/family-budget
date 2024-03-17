@@ -32,21 +32,47 @@ const testItemsForSelect = [
   },
 ];
 
-const OptionComponent = ({ ...props }) => {
+const testItemsForSelect1 = [
+  {
+    id: 1,
+    name: "test 2 name 1",
+  },
+  {
+    id: 2,
+    name: "test 2 name 2",
+  },
+  {
+    id: 3,
+    name: "test 2 name 3",
+  },
+];
+
+const OptionComponent = ({ onClick, ...props }) => {
   const { data } = props;
+  console.log("DATA IN SELECTED COMP", data);
   return (
     <>
-      <span>{data.name}</span>
-      <span>{data.type }</span>
+      <span onClick={() => onClick(data.id)}>{data.some.name}</span>
     </>
   );
+};
+
+const selectedComponent = (props) => {
+  console.log("DATA IN SELECTED COMP", props);
+
+  return <span>{props.some.name}</span>;
 };
 
 const DashboardPage = () => {
   return (
     <div>
       DASHBOARD PAGE
-      <CustomSelector data={testItemsForSelect} forGroup='type' options={OptionComponent} />
+      <CustomSelector
+        data={testItemsForSelect}
+        forGroup="type"
+        options={OptionComponent}
+        selected={selectedComponent}
+      />
     </div>
   );
 };
