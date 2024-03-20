@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CustomButton from "./../../../Custom/Button/CustomButton";
 import { setProperty } from "../../../helper/setPropertyToNestedObj";
-import { useDispatch } from "react-redux";
 import { addTransactionToFirestore } from "../../../store/slices/transactionsSlice";
+import { fetchCategoies } from "../../../store/slices/categorySlice";
+import CustomSelector from "../../../Custom/Selector/CustomSelector";
 
 const AddTransactionForm = ({ onCloseForm }) => {
   const dispatch = useDispatch();
 
   const [transactionData, setTransactionData] = useState({
-    category: "",
+    category: null,
     date: "",
     note: "",
     amount: 0,
   });
 
   console.log("Transaction", transactionData);
+
+  const data = useSelector((state) => state.data.categories.categoryArray);
+
+console.log('DATA IN ADD TRANSACTIONS', data);
+
+  useEffect(() => {
+    dispatch(fetchCategoies());
+  }, [dispatch]);
 
   const handleAddTransaction = (e) => {
     e.preventDefault();
@@ -33,20 +43,36 @@ const AddTransactionForm = ({ onCloseForm }) => {
     setTransactionData(setProperty(transactionData, name, value));
   };
 
+  const OptionComponent = ({ onClick, ...props }) => {
+    const { data } = props;
+    return (
+      <>
+        <span onClick={() => onClick(data.id)}>{data.name}</span>
+      </>
+    );
+  };
+
+  const selectedComponent = (props) => {
+    return <span>{props.name}</span>;
+  };
+
+  const getSelectedItem = (item) => {
+    console.log("CATEGORY", item);
+    setTransactionData({ category: item });
+  };
+
   return (
     <form className="add-transaction" onSubmit={handleAddTransaction}>
       <div className="add-transaction__form">
         <div className="add-transaction__form__category">
           <label htmlFor="category">Category</label>
-          <select name="category" id="category" onChange={onImputChanges}>
-            <option disabled="disabled" selected="selected">
-              Select category
-            </option>
-
-            <option value="value1">Значение 1</option>
-            <option value="value2">Значение 2</option>
-            <option value="value3">Значение 3</option>
-          </select>
+          <CustomSelector
+            data={data}
+            forGroup="type"
+            options={OptionComponent}
+            selected={selectedComponent}
+            selectedData={(item) => getSelectedItem(item)}
+          />
         </div>
         <div className="add-transaction__form__date">
           <label htmlFor="date">Date</label>

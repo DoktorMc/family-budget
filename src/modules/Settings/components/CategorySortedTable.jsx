@@ -41,7 +41,7 @@ const CategorySortedTable = ({ categoryType }) => {
           key={item.id}
           className="manage-categories__table__items__list__item"
         >
-          <span>{item.category.name}</span>
+          <span>{item.name}</span>
 
           <div className="manage-categories__table__items__list__item__buttons">
             <CustomButton

@@ -9,26 +9,48 @@ import TabContent from "../TabNav/TabContent";
 const groupByNestedProperty = (objects, propertyKey) => {
   const groups = [];
   let value = [];
+  console.log("OBJ IN GROUP", objects);
   const group = (obj, path = "") => {
-    for (const key in obj) {
+    for (const key in obj) { 
       if (typeof obj[key] === "object" && obj[key] !== null) {
         group(obj[key], path + "." + key);
+      
+      } else if (key === propertyKey) {
+        value = obj[key];
         if (!groups[value]) {
-          groups[value] = [];
-        }
+         groups[value] = [];
+        }   
         groups[value].push(obj);
-      } else {
-        const fullPath = (path === "" ? key : path + "." + key).slice(1);
-        if (key === propertyKey) {
-          value = obj[key];
-        }
-      }
+      } 
     }
   };
   objects.forEach((obj) => group(obj));
 
   return groups;
 };
+
+const groupByNestedProperty1 = (objects, nestedKey) => {
+  const groups = [];
+
+ const traverse = (obj, parent) => {
+    if (typeof obj === "object" && obj !== null) {
+      if (nestedKey in obj) {
+        const value = obj[nestedKey];
+        if (!groups[value]) {
+          groups[value] = [];
+        }
+        groups[value].push(parent);
+      }
+      for (const key in obj) {
+        traverse(obj[key], obj);
+      }
+    }
+  }
+
+  objects.forEach((obj) => traverse(obj, obj));
+
+  return groups;
+}
 
 const getPathSelectedItem = (objects, selectedItemKey) => {
   console.log("OBJ IN SELECTED", objects);
@@ -62,7 +84,13 @@ const getPathSelectedItem = (objects, selectedItemKey) => {
 };
 
 //
-const CustomSelector = ({ data, forGroup, options, selected }) => {
+const CustomSelector = ({
+  data,
+  forGroup,
+  options,
+  selected,
+  selectedData,
+}) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isGroup, setIsGroup] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -79,13 +107,14 @@ const CustomSelector = ({ data, forGroup, options, selected }) => {
   }, [forGroup]);
 
   if (forGroup) {
-    groupedData = groupByNestedProperty(data, forGroup);
+    groupedData = groupByNestedProperty1(data, forGroup);
   } else {
     groupedData = data;
   }
 
   const handleSetSelected = (item) => {
     setSelectedItem(item);
+    selectedData(item);
     setIsActive(!isActive);
   };
 

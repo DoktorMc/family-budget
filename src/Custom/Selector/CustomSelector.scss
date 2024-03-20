@@ -1,6 +1,7 @@
 @import "../../styleVariables.scss";
 
 .custom-selector {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,12 +37,14 @@
   }
 
   &__options {
+    position: absolute;
+    top: 40px;
     background-color: $wite-color;
-    max-height: 0px;
+    height: 0px;
     overflow: hidden;
-    -webkit-transition: max-height 0.4s linear;
-    -moz-transition: max-height 0.4s linear;
-    transition: max-height 0.4s linear;
+    -webkit-transition: height 0.4s linear;
+    -moz-transition: height 0.4s linear;
+    transition: height 0.4s linear;
     width: inherit;
     border-radius: 10px;
     transition: all 0.5s;
@@ -49,8 +52,8 @@
 
     &.active {
       padding: 8px;
-      margin-top: 5px;
-      max-height: 300px;
+      // margin-top: 5px;
+      height: 200px;
     }
 
     &__tab-nav {

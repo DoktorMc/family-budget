@@ -38,7 +38,7 @@ const EditCategoryForm = ({ categoryForEdit, closeModal }) => {
           name="name"
           id="edit_name_category"
           // value={newNameCategory}
-          defaultValue={categoryForEdit.category.name}
+          defaultValue={categoryForEdit.name}
           onChange={onImputChanges}
         />
       </div>

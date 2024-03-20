@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "./../firebase-config";
-import CategorySortedTable from "../../modules/Settings/components/CategorySortedTable";
+
 
 const initialState = {
   categoryArray: [],
@@ -61,7 +61,7 @@ export const fetchCategoies = createAsyncThunk(
     const querySnapshot = await getDocs(collection(db, "Categories"));
     const categories = querySnapshot.docs.map((doc) => ({
       id: doc.id,
-      category: doc.data(),
+      ...doc.data(),
     }));
     return categories;
   }
@@ -90,7 +90,7 @@ const categorySlice = createSlice({
         console.log("NAME", name);
         state.categoryArray = state.categoryArray.map((categ) =>
           categ.id === id
-            ? { id: id, category: { ...categ.category, name: name } }
+            ? { id: id, ...categ, name: name  }
             : categ
         );
       });

@@ -1,9 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import CategorySortedTable from "./CategorySortedTable";
-import LoaderSpinCube from "../../../helper/loader/loaderSpinCube";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCategoies } from "../../../store/slices/categorySlice";
-
 
 
 const ManageCateries = ({ data}) => {
@@ -12,10 +8,10 @@ const ManageCateries = ({ data}) => {
   console.log("group data", groupedData);
   
   data.forEach((item) => {
-    if (!groupedData[item.category.type]) {
-      groupedData[item.category.type] = [];
+    if (!groupedData[item.type]) {
+      groupedData[item.type] = [];
     }
-    groupedData[item.category.type].push(item);
+    groupedData[item.type].push(item);
   });
 
   return (
