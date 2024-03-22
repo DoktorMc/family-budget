@@ -99,6 +99,8 @@ const CustomSelector = ({
     setIsActive(!isActive);
   };
   let groupedData = {};
+  
+  console.log('DATA', data);
 
   useEffect(() => {
     if (forGroup) {
@@ -112,9 +114,13 @@ const CustomSelector = ({
     groupedData = data;
   }
 
-  const handleSetSelected = (item) => {
-    setSelectedItem(item);
-    selectedData(item);
+  const handleSetSelected = (id) => {
+    setSelectedItem(data.reduce((item) => {
+      if (item.id === id) { 
+        return item;
+      }
+    }));
+    selectedData(id);
     setIsActive(!isActive);
   };
 

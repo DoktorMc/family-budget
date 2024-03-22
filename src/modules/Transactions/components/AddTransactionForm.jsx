@@ -10,7 +10,6 @@ const AddTransactionForm = ({ onCloseForm }) => {
   const dispatch = useDispatch();
 
   const [transactionData, setTransactionData] = useState({
-    category: null,
     date: "",
     note: "",
     amount: 0,
@@ -60,6 +59,10 @@ console.log('DATA IN ADD TRANSACTIONS', data);
     console.log("CATEGORY", item);
     setTransactionData({ category: item });
   };
+
+  const createTransactionCategoryJunction = (trID, catId) => {
+    
+  }
 
   return (
     <form className="add-transaction" onSubmit={handleAddTransaction}>
