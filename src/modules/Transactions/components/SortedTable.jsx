@@ -1,18 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment/moment";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCategoies } from "../../../store/slices/categorySlice";
 
-const SortedTable = ({ data }) => {
+const SortedTable = ({ dataT }) => {
   const groupedData = {};
   const groupTotalAmount = {};
 
-  const datas = [...data].sort(
+  const datas = [...dataT].sort(
     (a, b) =>
       moment(a.transaction.date, "DD.MM.YY") -
       moment(b.transaction.date, "DD.MM.YY")
   );
+  const dispatch = useDispatch();
+  const dataCat = useSelector((state) => state.data.categories.categoryArray);
+  useEffect(() => {
+    dispatch(fetchCategoies());
+  }, [dispatch]);
+
+  const getNameCategory = (categoryID) => {
+    for (let item of dataCat) {
+      if (item.id === categoryID) {
+        return item.name;
+      }
+    }
+  };
 
   datas.forEach((item) => {
-    if (!groupedData[item.transaction.date]) { 
+    if (!groupedData[item.transaction.date]) {
       groupedData[item.transaction.date] = [];
     }
     groupedData[item.transaction.date].push(item);
@@ -33,10 +48,10 @@ const SortedTable = ({ data }) => {
     return sum;
   };
 
-  const handleTableItemClick = (item) => { 
-      // e.preventDefault();
-    console.log('Click to table item ', item);
-  }
+  const handleTableItemClick = (item) => {
+    // e.preventDefault();
+    console.log("Click to table item ", item);
+  };
 
   return (
     <div className="transaction-table__data">
@@ -57,9 +72,9 @@ const SortedTable = ({ data }) => {
             <div
               className="transaction-table__data__sorted-part__transaction-data"
               key={item.id}
-              onClick={()=>handleTableItemClick(item)}
+              onClick={() => handleTableItemClick(item)}
             >
-              <span>{item.transaction.category}</span>
+              <span>{getNameCategory(item.transaction.category)}</span>
               <span>{item.transaction.user}</span>
               <span>{item.transaction.note}</span>
               {!item.transaction.photo ? (

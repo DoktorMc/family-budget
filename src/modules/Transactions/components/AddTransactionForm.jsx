@@ -8,7 +8,8 @@ import CustomSelector from "../../../Custom/Selector/CustomSelector";
 
 const AddTransactionForm = ({ onCloseForm }) => {
   const dispatch = useDispatch();
-
+  const [inputValue, setInputValue] = useState("");
+  const [negative, setNegative] = useState(null);
   const [transactionData, setTransactionData] = useState({
     date: "",
     note: "",
@@ -17,9 +18,9 @@ const AddTransactionForm = ({ onCloseForm }) => {
 
   console.log("Transaction", transactionData);
 
-  const data = useSelector((state) => state.data.categories.categoryArray);
+  const dataCAT = useSelector((state) => state.data.categories.categoryArray);
 
-console.log('DATA IN ADD TRANSACTIONS', data);
+  console.log("data", dataCAT);
 
   useEffect(() => {
     dispatch(fetchCategoies());
@@ -54,15 +55,20 @@ console.log('DATA IN ADD TRANSACTIONS', data);
   const selectedComponent = (props) => {
     return <span>{props.name}</span>;
   };
-
-  const getSelectedItem = (item) => {
-    console.log("CATEGORY", item);
-    setTransactionData({ category: item });
+  console.log("NEGATIVE", negative);
+  const getSelectedItem = (id) => {
+    console.log("CATEGORY", id);
+    setTransactionData({ category: id });
+    for (let item of dataCAT) {
+      if (item.id === id) {
+        if (item.type === "income") {
+          setNegative(false);
+        } else {
+          setNegative(true);
+        }
+      }
+    }
   };
-
-  const createTransactionCategoryJunction = (trID, catId) => {
-    
-  }
 
   return (
     <form className="add-transaction" onSubmit={handleAddTransaction}>
@@ -70,11 +76,11 @@ console.log('DATA IN ADD TRANSACTIONS', data);
         <div className="add-transaction__form__category">
           <label htmlFor="category">Category</label>
           <CustomSelector
-            data={data}
+            data={dataCAT}
             forGroup="type"
             options={OptionComponent}
             selected={selectedComponent}
-            selectedData={(item) => getSelectedItem(item)}
+            selectedData={(id) => getSelectedItem(id)}
           />
         </div>
         <div className="add-transaction__form__date">
@@ -92,7 +98,8 @@ console.log('DATA IN ADD TRANSACTIONS', data);
             name="amount"
             id="amount"
             step="0.01"
-            placeholder="0.00"
+            placeholder={negative ? "-0.00" : "0.00"}
+            max='0'
             onChange={onImputChanges}
           />
         </div>

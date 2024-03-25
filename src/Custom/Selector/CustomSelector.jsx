@@ -6,33 +6,10 @@ import GroupDataTable from "./GroupDataTable";
 import TabNavItem from "../TabNav/TabNavItem";
 import TabContent from "../TabNav/TabContent";
 
-const groupByNestedProperty = (objects, propertyKey) => {
-  const groups = [];
-  let value = [];
-  console.log("OBJ IN GROUP", objects);
-  const group = (obj, path = "") => {
-    for (const key in obj) { 
-      if (typeof obj[key] === "object" && obj[key] !== null) {
-        group(obj[key], path + "." + key);
-      
-      } else if (key === propertyKey) {
-        value = obj[key];
-        if (!groups[value]) {
-         groups[value] = [];
-        }   
-        groups[value].push(obj);
-      } 
-    }
-  };
-  objects.forEach((obj) => group(obj));
-
-  return groups;
-};
-
-const groupByNestedProperty1 = (objects, nestedKey) => {
+const groupByNestedProperty = (objects, nestedKey) => {
   const groups = [];
 
- const traverse = (obj, parent) => {
+  const traverse = (obj, parent) => {
     if (typeof obj === "object" && obj !== null) {
       if (nestedKey in obj) {
         const value = obj[nestedKey];
@@ -45,12 +22,12 @@ const groupByNestedProperty1 = (objects, nestedKey) => {
         traverse(obj[key], obj);
       }
     }
-  }
+  };
 
   objects.forEach((obj) => traverse(obj, obj));
 
   return groups;
-}
+};
 
 const getPathSelectedItem = (objects, selectedItemKey) => {
   console.log("OBJ IN SELECTED", objects);
@@ -99,8 +76,6 @@ const CustomSelector = ({
     setIsActive(!isActive);
   };
   let groupedData = {};
-  
-  console.log('DATA', data);
 
   useEffect(() => {
     if (forGroup) {
@@ -109,23 +84,21 @@ const CustomSelector = ({
   }, [forGroup]);
 
   if (forGroup) {
-    groupedData = groupByNestedProperty1(data, forGroup);
+    groupedData = groupByNestedProperty(data, forGroup);
   } else {
     groupedData = data;
   }
 
   const handleSetSelected = (id) => {
-    setSelectedItem(data.reduce((item) => {
-      if (item.id === id) { 
-        return item;
+    for (let item in data) {
+      if (data[item].id === id) {
+        setSelectedItem(data[item]);
       }
-    }));
+    }
     selectedData(id);
     setIsActive(!isActive);
   };
 
-  console.log("GROUP DATA", groupedData);
-  console.log("SELECTED IETM", selectedItem);
   return (
     <div className="custom-selector">
       <div className="custom-selector__select">
@@ -164,7 +137,7 @@ const CustomSelector = ({
                     data={groupedData[data]}
                     OptionComponent={options}
                     isGroup={isGroup}
-                    selectedItem={(item) => handleSetSelected(item)}
+                    selectedItem={(id) => handleSetSelected(id)}
                   />
                 </TabContent>
               ))}
