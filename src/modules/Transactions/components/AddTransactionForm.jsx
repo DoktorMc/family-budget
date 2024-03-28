@@ -15,12 +15,7 @@ const AddTransactionForm = ({ onCloseForm }) => {
     note: "",
     amount: 0,
   });
-
-  console.log("Transaction", transactionData);
-
   const dataCAT = useSelector((state) => state.data.categories.categoryArray);
-
-  console.log("data", dataCAT);
 
   useEffect(() => {
     dispatch(fetchCategoies());
@@ -37,6 +32,14 @@ const AddTransactionForm = ({ onCloseForm }) => {
     let { value, name } = e.target;
 
     if (name === "amount") {
+      let bufValue = value.match(/\d+/g);
+      if (negative ) {
+       value = bufValue === null ? "-" : `-${bufValue}`;;
+      } else {
+        value = bufValue;
+      }
+    
+      setInputValue(value);
       value = parseFloat(value);
     }
 
@@ -55,9 +58,7 @@ const AddTransactionForm = ({ onCloseForm }) => {
   const selectedComponent = (props) => {
     return <span>{props.name}</span>;
   };
-  console.log("NEGATIVE", negative);
   const getSelectedItem = (id) => {
-    console.log("CATEGORY", id);
     setTransactionData({ category: id });
     for (let item of dataCAT) {
       if (item.id === id) {
@@ -69,6 +70,10 @@ const AddTransactionForm = ({ onCloseForm }) => {
       }
     }
   };
+
+
+  
+
 
   return (
     <form className="add-transaction" onSubmit={handleAddTransaction}>
@@ -94,13 +99,15 @@ const AddTransactionForm = ({ onCloseForm }) => {
         <div className="add-transaction__form__amount">
           <label htmlFor="amount">Amount</label>
           <input
-            type="number"
+            className={negative ? 'expenses': 'income'}
+            type="text"
             name="amount"
             id="amount"
-            step="0.01"
+            value={inputValue}
             placeholder={negative ? "-0.00" : "0.00"}
-            max='0'
             onChange={onImputChanges}
+            pattern="^-?\d+$"
+            
           />
         </div>
       </div>
