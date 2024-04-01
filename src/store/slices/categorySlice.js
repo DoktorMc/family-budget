@@ -19,7 +19,7 @@ export const addCategory = createAsyncThunk(
   "categories/addCategory",
   async (category) => {
     const addCategoryRef = await addDoc(collection(db, "Categories"), category);
-    const newCategory = { id: addCategoryRef.id, category };
+    const newCategory = { id: addCategoryRef.id, ...category };
     return newCategory;
   }
 );

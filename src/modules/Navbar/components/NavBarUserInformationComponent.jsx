@@ -5,8 +5,7 @@ import { auth } from "../../../store/firebase-config";
 
 const NavBarUserInformationComponent = () => {
   const userCurrent = auth.currentUser;
-
-  const user = useSelector((state) => state.data.user.user);
+  const user = useSelector((state) => state.data.user.user.user);
 
   return (
     <div className="navbar-user">

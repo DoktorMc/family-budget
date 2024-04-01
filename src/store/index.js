@@ -6,6 +6,7 @@ const store = configureStore({
   reducer: {
     data: rootReducer,
   },
+ 
 });
 
 export default store

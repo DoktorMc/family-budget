@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import moment from "moment/moment";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategoies } from "../../../store/slices/categorySlice";
+import { getUsers } from "../../../store/slices/userSlice";
 
 const SortedTable = ({ dataT }) => {
   const groupedData = {};
@@ -16,6 +17,7 @@ const SortedTable = ({ dataT }) => {
   const dataCat = useSelector((state) => state.data.categories.categoryArray);
   useEffect(() => {
     dispatch(fetchCategoies());
+    dispatch(getUsers());
   }, [dispatch]);
 
   const getNameCategory = (categoryID) => {
@@ -82,7 +84,9 @@ const SortedTable = ({ dataT }) => {
               ) : (
                 <span>{item.transaction.photo}</span>
               )}
-              <span>{item.transaction.amount} USD</span>
+              <span className={item.transaction.amount<0 ? "expenses" : "income"}>
+                {item.transaction.amount} USD
+              </span>
             </div>
           ))}
           <div className="transaction-table__data__sorted-part__underline"></div>

@@ -30,9 +30,9 @@ function App() {
     });
   }, []);
 
-  const user = useSelector((state) => state.data.user.user);
+  const user = useSelector((state) => state.data.user.user.user);
 
-  const isLoading = useSelector((state) => state.data.user.isLoading);
+  const isLoading = useSelector((state) => state.data.user.user.isLoading);
 
   return (
     <main className="App">

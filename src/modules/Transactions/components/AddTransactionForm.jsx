@@ -5,9 +5,13 @@ import { setProperty } from "../../../helper/setPropertyToNestedObj";
 import { addTransactionToFirestore } from "../../../store/slices/transactionsSlice";
 import { fetchCategoies } from "../../../store/slices/categorySlice";
 import CustomSelector from "../../../Custom/Selector/CustomSelector";
+import { auth } from "../../../store/firebase-config";
+
 
 const AddTransactionForm = ({ onCloseForm }) => {
   const dispatch = useDispatch();
+  const userCurrent = auth.currentUser;
+  console.log('CURR USER IN ADD TRANS', userCurrent);
   const [inputValue, setInputValue] = useState("");
   const [negative, setNegative] = useState(null);
   const [transactionData, setTransactionData] = useState({
@@ -23,8 +27,9 @@ const AddTransactionForm = ({ onCloseForm }) => {
 
   const handleAddTransaction = (e) => {
     e.preventDefault();
-
-    dispatch(addTransactionToFirestore(transactionData));
+console.log("UID", userCurrent.uid);
+    dispatch(addTransactionToFirestore({transaction: transactionData, uid: userCurrent.uid}));
+    console.log('TRANS AFTER ADDED', transactionData);
     onCloseForm();
   };
 
@@ -70,10 +75,6 @@ const AddTransactionForm = ({ onCloseForm }) => {
       }
     }
   };
-
-
-  
-
 
   return (
     <form className="add-transaction" onSubmit={handleAddTransaction}>
