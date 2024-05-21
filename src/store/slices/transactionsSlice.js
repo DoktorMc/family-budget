@@ -12,22 +12,18 @@ const initialState = {
 export const addTransactionToFirestore = createAsyncThunk(
   "transactions/addTransactionToFirestore",
   async (dataTransaction) => {
-    const {transaction, uid}= dataTransaction
+    const { transaction, uid } = dataTransaction;
     const addTransactionRef = await addDoc(
       collection(db, "Transactions"),
       transaction
     );
-    console.log('UID IN JUNC', uid);
+
     const juncID = `${addTransactionRef.id}_${uid}`;
-    console.log('TEST JUNC ID: ', juncID);
-   await setDoc(
-      doc(
-        db,
-        "junction_transaction_user",
-        juncID
-      ),
-      { transactionID: addTransactionRef.id, userID: uid }
-    );
+
+    await setDoc(doc(db, "junction_transaction_user", juncID), {
+      transactionID: addTransactionRef.id,
+      userID: uid,
+    });
 
     const newTransaction = { id: addTransactionRef.id, transaction };
     return newTransaction;

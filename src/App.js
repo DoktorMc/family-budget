@@ -11,6 +11,7 @@ import LoaderSpinCube from "./helper/loader/loaderSpinCube";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -22,10 +23,12 @@ function App() {
           })
         );
         dispatch(setLoading(false));
+        
         navigate('/')
       } else {
         console.log("User is not logged in!");
         dispatch(setLoading(false));
+        // navigate('/login')
       }
     });
   }, []);

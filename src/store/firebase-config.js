@@ -13,10 +13,7 @@ const app = initializeApp({
 });
 
 export default app;
-export const auth = getAuth();
+export const auth = getAuth(app);
 export const db = getFirestore(app)
 
-//firebase login
-//firebase init
-//firebase deploy
 
