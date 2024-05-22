@@ -12,8 +12,6 @@ const NavBarUserInformationComponent = () => {
     setCurUser(auth.currentUser);
   }, []);
 
-  console.log("CUR USER name", userForNav);
-
   return (
     <div className="navbar-user">
       {curUser.photoURL ? (
@@ -25,10 +23,11 @@ const NavBarUserInformationComponent = () => {
             : userForNav.email.charAt(0).toUpperCase()}
         </Avatar>
       )}
-       {userForNav.userName != null
-            ?  <span className="navbar-user-name">{userForNav.userName}</span>
-            :  <span className="navbar-user-name">{userForNav.email}</span>}
-      
+      {userForNav.userName != null ? (
+        <span className="navbar-user-name">{userForNav.userName}</span>
+      ) : (
+        <span className="navbar-user-name">{userForNav.email}</span>
+      )}
     </div>
   );
 };

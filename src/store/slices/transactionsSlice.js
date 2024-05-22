@@ -13,6 +13,7 @@ export const addTransactionToFirestore = createAsyncThunk(
   "transactions/addTransactionToFirestore",
   async (dataTransaction) => {
     const { transaction, uid } = dataTransaction;
+    console.log("TRNSCTN on slice", transaction);
     const addTransactionRef = await addDoc(
       collection(db, "Transactions"),
       transaction

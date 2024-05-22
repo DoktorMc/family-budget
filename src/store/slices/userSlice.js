@@ -16,16 +16,20 @@ export const addUserToFirebase = createAsyncThunk(
   async (dataUser) => {
     const userData = dataUser;
     console.log("UserTOFire", userData);
-    const addUserRef = await setDoc(doc(db, "Users", userData.uid), {
+   await setDoc(doc(db, "Users", userData.uid), {
       userName: userData.displayName,
       userEmail: userData.email,
     });
+
+    const addUserRef = doc(db, "Users", userData.uid);
+    console.log("NEW USER REF", addUserRef);
 
     const newUser = {
       id: addUserRef.id,
       userName: userData.displayName,
       userEmail: userData.email,
     };
+    console.log("NEW USER", newUser);
     return newUser;
   }
 );
@@ -46,6 +50,7 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(addUserToFirebase.fulfilled, (state, action) => {
+      console.log("TEST TO WORKING REDUCER");
       state.users.push(action.payload);
     });
   },
@@ -53,4 +58,6 @@ const userSlice = createSlice({
 
 export const { setUser, removeUser, setLoading } = userSlice.actions;
 
-export default userSlice;
+export default userSlice.reducer;
+
+// setUser, removeUser, setLoading

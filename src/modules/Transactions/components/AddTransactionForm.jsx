@@ -7,11 +7,9 @@ import { fetchCategoies } from "../../../store/slices/categorySlice";
 import CustomSelector from "../../../Custom/Selector/CustomSelector";
 import { auth } from "../../../store/firebase-config";
 
-
 const AddTransactionForm = ({ onCloseForm }) => {
   const dispatch = useDispatch();
   const userCurrent = auth.currentUser;
-  console.log('CURR USER IN ADD TRANS', userCurrent);
   const [inputValue, setInputValue] = useState("");
   const [negative, setNegative] = useState(null);
   const [transactionData, setTransactionData] = useState({
@@ -20,6 +18,9 @@ const AddTransactionForm = ({ onCloseForm }) => {
     amount: 0,
   });
   const dataCAT = useSelector((state) => state.data.categories.categoryArray);
+  
+
+
 
   useEffect(() => {
     dispatch(fetchCategoies());
@@ -27,9 +28,12 @@ const AddTransactionForm = ({ onCloseForm }) => {
 
   const handleAddTransaction = (e) => {
     e.preventDefault();
-console.log("UID", userCurrent.uid);
-    dispatch(addTransactionToFirestore({transaction: transactionData, uid: userCurrent.uid}));
-    console.log('TRANS AFTER ADDED', transactionData);
+    dispatch(
+      addTransactionToFirestore({
+        transaction: transactionData,
+        uid: userCurrent.uid,
+      })
+    );
     onCloseForm();
   };
 
@@ -38,12 +42,12 @@ console.log("UID", userCurrent.uid);
 
     if (name === "amount") {
       let bufValue = value.match(/\d+/g);
-      if (negative ) {
-       value = bufValue === null ? "-" : `-${bufValue}`;;
+      if (negative) {
+        value = bufValue === null ? "-" : `-${bufValue}`;
       } else {
         value = bufValue;
       }
-    
+
       setInputValue(value);
       value = parseFloat(value);
     }
@@ -64,7 +68,7 @@ console.log("UID", userCurrent.uid);
     return <span>{props.name}</span>;
   };
   const getSelectedItem = (id) => {
-    setTransactionData({ category: id });
+    setTransactionData({ category: id, userID: userCurrent.uid });
     for (let item of dataCAT) {
       if (item.id === id) {
         if (item.type === "income") {
@@ -100,7 +104,7 @@ console.log("UID", userCurrent.uid);
         <div className="add-transaction__form__amount">
           <label htmlFor="amount">Amount</label>
           <input
-            className={negative ? 'expenses': 'income'}
+            className={negative ? "expenses" : "income"}
             type="text"
             name="amount"
             id="amount"
@@ -108,7 +112,6 @@ console.log("UID", userCurrent.uid);
             placeholder={negative ? "-0.00" : "0.00"}
             onChange={onImputChanges}
             pattern="^-?\d+$"
-            
           />
         </div>
       </div>
